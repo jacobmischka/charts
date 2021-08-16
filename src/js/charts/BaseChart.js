@@ -231,6 +231,22 @@ export default class BaseChart {
 
 	setupComponents() { this.components = new Map(); }
 
+	updateTitle(title) {
+		const oldTitle = this.title;
+		this.title = title;
+
+		if(title.length && oldTitle.length && this.titleEL) {
+			this.titleEL.textContent = title;
+		} else {
+			if(!title.length && oldTitle.length) {
+				this.measures.titleHeight = 0;
+			} else if(title.length && !oldTitle.length) {
+				this.measures.titleHeight = BASE_MEASURES.titleHeight;
+			}
+			this.makeChartArea();
+		}
+	}
+
 	update(data) {
 		if(!data) {
 			console.error('No data to update.');
